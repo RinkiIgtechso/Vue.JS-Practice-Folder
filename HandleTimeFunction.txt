@@ -1,0 +1,59 @@
+const handleTime = (e, val) => {
+        let time = e.split(":").map((item)=>Number(item));
+        let time1 = moment().format("HH:mm").split(":").map((item)=>Number(item));
+        // const parsedTime = moment(e, 'HH:mm'); // Parse time
+        // const formattedTime = parsedTime.format('h:mm A');
+        let hours = 0;
+        let x = '';
+        if(time[0]===12){
+@@ -89,37 +87,24 @@ function CreateEvent({setShow}) {
+        hours = hours<10?"0"+hours:hours;
+        let min = time[1]<10?"0"+time[1]:time[1];
+        let nTime = hours+":"+min+" "+x;
+        if(val==='stime'){
+            if(date && new Date(date).toLocaleDateString() === moment().format('l') && Number(time[0])<Number(time1[0])){
+                setStime('');
+                setTime1('');
+                return;
+            }else{
+                setTime1(e);
+                setStime(nTime);
+            }
+        }else{
+            if(date && new Date(date).toLocaleDateString() === moment().format('l') && Number(time[0])<Number(time1[0])){
+                setEtime('');
+        let dateTime = nDate+ " " + e;
+        const anotherTime = moment(dateTime);
+        if(!currentTime.isAfter(anotherTime) && val==='stime'){
+            setTime1(e);
+            setStime(nTime);
+        }else if(!currentTime.isAfter(anotherTime) && val==='etime'){
+            let endTime = nDate+ " "+ e;
+            endTime = moment(endTime);
+            let startTime = nDate+ " " + time1;
+            startTime = moment(startTime);
+            if(!endTime.isAfter(startTime)){
+                setTime2('');
+                setEtime('');
+                return;
+            }else{
+                let first = stime.split(":");
+                let second = nTime.split(":");
+                if(stime===nTime || Number(first[0])>Number(second[0]) || Number(first[0])===Number(second[0]) && Number(first[1].split(" ")[0]) >= Number(second[1].split(" ")[0])){
+                    // if(first[1].includes('PM') && second[1].includes('AM') ){
+                    //     setEtime('');
+                    //     setTime2('');
+                    //     return;
+                    // }
+                    setEtime('');
+                    setTime2('');
+                    return;
+                }
+                setTime2(e);
+                setEtime(nTime);
+            }
+        }
+            setTime2(e);
+            setEtime(nTime);
+        } 
+    }
