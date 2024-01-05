@@ -1,14 +1,25 @@
 <template>
   <div class="home">
-    <h2>Welcome to the home page</h2>
+    <child-header v-bind:title="title" v-on:changeTitle="updateTitle($event)"></child-header>
   </div>
 </template>
 
 <script>
+import ChildPareEventsVue from './ChildPareEvents.vue';
 
 
 export default {
   name: 'HomeView',
-  components: { }
+  components: { 'child-header': ChildPareEventsVue },
+  data(){
+    return{
+      title:"Homepage"
+    }
+  },
+  methods: {
+    updateTitle: function(updatedTitle){
+      this.title = updatedTitle
+    }
+  }
 }
 </script>
